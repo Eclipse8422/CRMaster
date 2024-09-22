@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block content %}
+    {% if request.user.is_organisor %}
+    <a href="{% url 'leads:lead-create'%}">Create new lead</a>
+    {% endif %}
+    <hr>
+    <h1>This is leads list</h1>
+    {% for lead in leads %}
+        <div>
+            <a href="{% url 'leads:lead-detail' lead.pk %}">{{ lead.first_name }} {{ lead.last_name }}</a>
+        </div>
+    {% endfor %}
+
+{% endblock content %}
