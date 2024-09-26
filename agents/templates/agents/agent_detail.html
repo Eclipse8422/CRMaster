@@ -1,11 +1,55 @@
 {% extends "base.html" %}
 {% block content %}
 
-    <a href="{% url 'agents:agent-list' %}">Go back To Agents list</a>
-    <hr>
-    <h1>Details of {{ agent.user.username }}</h1>
-    <hr>
-    <a href="{% url 'agents:agent-update' agent.pk  %}">Update</a>
-    <a href="{% url 'agents:agent-delete' agent.pk  %}">Delete</a>
+<div class="container py-5">
+    <div class="row mb-4">
+        <div class="col-md-8">
+            <a href="{% url 'agents:agent-list' %}" class="btn btn-outline-dark mb-3">
+                <i class="bi bi-arrow-left me-2"></i>Back to agents
+            </a>
+            <h1 class="display-4 mb-3">{{ agent.user.first_name }} {{ agent.user.last_name }}</h1>
+        </div>
+    </div>
+
+    <div class="card shadow-sm rounded">
+        <div class="card-body rounded">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h2 class="h3 mb-0">Overview</h2>
+            </div>
+            <hr>
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <h5 class="text-black">Username</h5>
+                    <p class="lead">{{ agent.user.username }}</p>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <h5 class="text-black">Email</h5>
+                    <p class="lead">{{ agent.user.email }}</p>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <h5 class="text-black">First Name</h5>
+                    <p class="lead">{{ agent.user.first_name }}</p>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <h5 class="text-black">Last Name</h5>
+                    <p class="lead">{{ agent.user.last_name }}</p>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <h5 class="text-black">Date Joined</h5>
+                    <p class="lead">{{ agent.user.date_joined|date:"F d, Y" }}</p>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <h5 class="text-black">Last Login</h5>
+                    <p class="lead">{{ agent.user.last_login|date:"F d, Y H:i" }}</p>
+                </div>
+            </div>
+
+            <div class="mt-4">
+                <a href="{% url 'agents:agent-update' agent.pk %}" class="btn btn-dark me-2">Update Agent</a>
+                <a href="{% url 'agents:agent-delete' agent.pk %}" class="btn btn-outline-danger">Delete Agent</a>
+            </div>
+        </div>
+    </div>
+</div>
 
 {% endblock content %}

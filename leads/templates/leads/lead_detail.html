@@ -1,15 +1,57 @@
 {% extends "base.html" %}
 {% block content %}
 
-    <a href="{% url 'leads:lead-list' %}">Go back To leads list</a>
-    <hr>
-    <h1>Details of {{ lead.first_name }}</h1>
-    <p>Leads age:{{ lead.age }}</p>
-    <p>Agent assigned: {{ lead.agent }}</p>
-    <hr>
-    {% if request.user.is_organisor %}
-    <a href="{% url 'leads:lead-update' lead.pk %}">Update</a>
-    <a href="{% url 'leads:lead-delete' lead.pk %}">Delete</a>
-    {% endif %}
+<div class="container py-5">
+    <div class="row mb-4">
+        <div class="col-md-8">
+            <a href="{% url 'leads:lead-list' %}" class="btn btn-outline-dark mb-3">
+                <i class="bi bi-arrow-left me-2"></i>Back to leads
+            </a>
+            <h1 class="display-4 mb-3">{{ lead.first_name }} {{ lead.last_name }}</h1>
+
+        </div>
+
+    </div>
+
+    <div class="card shadow-sm rounded">
+        <div class="card-body rounded">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h2 class="h3 mb-0">Overview</h2>
+                <a href="{% url 'leads:lead-category-update' lead.pk %}" class="btn btn-dark">
+                    <i class="bi bi-bookmark-plus-fill"></i> Change Category</a>
+            </div>
+            <hr>
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <h5 class="text-black">Description</h5>
+                    <p class="lead">{{ lead.description }}</p>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <h5 class="text-black">Age</h5>
+                    <p class="lead">{{ lead.age }}</p>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <h5 class="text-black">Email</h5>
+                    <p class="lead">{{ lead.email }}</p>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <h5 class="text-black">Phone Number</h5>
+                    <p class="lead">{{ lead.phone_number }}</p>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <h5 class="text-black">Agent Assigned</h5>
+                    <p class="lead">{{ lead.agent }}</p>
+                </div>
+            </div>
+
+            {% if request.user.is_organisor %}
+            <div class="mt-4">
+                <a href="{% url 'leads:lead-update' lead.pk %}" class="btn btn-dark me-2">Update Lead</a>
+                <a href="{% url 'leads:lead-delete' lead.pk %}" class="btn btn-outline-danger">Delete Lead</a>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
 
 {% endblock content %}

@@ -1,13 +1,28 @@
 {% extends "base.html" %}
+{% load crispy_forms_tags %}
 {% block content %}
 
-    <a href="{% url 'agents:agent-list' %}">Go back To Agents list</a>
-    <hr>
-    <h1>Do you want to delete this Agent ?</h1>
-    <form method="POST">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Delete</button>
-    </form>
-    
+<div class="container py-5">
+    <div class="row mb-4">
+        <div class="col-md-8">
+            <a href="{% url 'agents:agent-list' %}" class="btn btn-outline-dark mb-3">
+                <i class="bi bi-arrow-left me-2"></i>Back to agents list
+            </a>
+            <h1 class="display-4">Delete Agent</h1>
+        </div>
+    </div>
+
+    <div class="card shadow-sm rounded">
+        <div class="card-body rounded">
+            <h2 class="h4 mb-4">Are you sure you want to delete this agent?</h2>
+            <form method="POST">
+                {% csrf_token %}
+                {{ form|crispy }}
+                <button type="submit" class="btn btn-danger mt-3">Delete</button>
+                <a href="{% url 'agents:agent-list' %}" class="btn btn-outline-dark mt-3 ms-2">Cancel</a>
+            </form>
+        </div>
+    </div>
+</div>
+
 {% endblock content %}

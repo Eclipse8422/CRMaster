@@ -6,11 +6,11 @@
         <div class="container">
             <div class="row justify-content-center text-center">
                 <div class="col-md-8">
-                    <h1 class="display-4 fw-bold mb-4">Welcome to CRMaster</h1>
+                    <h1 class="typing-effect display-4 fw-bold mb-4">Welcome to CRMaster</h1>
                     <p class="lead mb-4 bold">
                         Streamline your customer relationships with our powerful Django-based CRM solution.
                     </p>
-                    <button class="btn btn-dark btn-lg">Get Started</button>
+                    <a href="{% url 'leads:lead-list' %}" class="btn btn-dark btn-lg mt-3">Get Started</a>
                 </div>
             </div>
         </div>
@@ -21,68 +21,68 @@
             <h2 class="text-center mb-5">Key Features</h2>
             <div class="row g-4">
                 <div class="col-md-6 col-lg-4">
-                    <div class="card h-100">
-                        <div class="card-body">
+                    <div class="card h-100 rounded">
+                        <div class="card-body rounded">
                             <div class="d-flex align-items-center mb-3">
                                 <i class="bi bi-file-text fs-1 text-primary me-2"></i>
-                                <h5 class="card-title mb-0">Lead Creation and Management</h5>
+                                <h5 class="card-title mb-0 text-center">Lead Creation and Management</h5>
                             </div>
-                            <p class="card-text">Easily create, track, and manage leads throughout your sales pipeline.</p>
+                            <p class="card-text text-center">Easily create, track, and manage leads throughout your sales pipeline.</p>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-6 col-lg-4">
-                    <div class="card h-100">
-                        <div class="card-body">
-                            <div class="d-flex align-items-center mb-3">
+                    <div class="card h-100 rounded">
+                        <div class="card-body rounded">
+                            <div class="d-flex align-items-center justify-content-center mb-3">
                                 <i class="bi bi-person-plus fs-1 text-primary me-2"></i>
                                 <h5 class="card-title mb-0">Agent Creation and Assignment</h5>
                             </div>
-                            <p class="card-text">Create agent profiles and efficiently assign leads to the right team members.</p>
+                            <p class="card-text text-center">Create agent profiles and efficiently assign leads to the right team members.</p>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-6 col-lg-4">
-                    <div class="card h-100">
-                        <div class="card-body">
-                            <div class="d-flex align-items-center mb-3">
+                    <div class="card h-100 shadow-sm rounded">
+                        <div class="card-body  shadow-sm rounded">
+                            <div class="d-flex align-items-center justify-content-center mb-3">
                                 <i class="bi bi-graph-up fs-1 text-primary me-2"></i>
                                 <h5 class="card-title mb-0">Performance Analytics</h5>
                             </div>
-                            <p class="card-text">Gain insights into your team's performance with detailed analytics and reports.</p>
+                            <p class="card-text text-center">Gain insights into your team's performance with detailed analytics and reports.</p>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-6 col-lg-4">
-                    <div class="card h-100">
-                        <div class="card-body">
-                            <div class="d-flex align-items-center mb-3">
+                    <div class="card h-100 rounded">
+                        <div class="card-body rounded">
+                            <div class="d-flex align-items-center justify-content-center mb-3">
                                 <i class="bi bi-calendar-event fs-1 text-primary me-2"></i>
                                 <h5 class="card-title mb-0">Task Scheduling</h5>
                             </div>
-                            <p class="card-text">Schedule and manage tasks for your team to ensure timely follow-ups.</p>
+                            <p class="card-text text-center">Schedule and manage tasks for your team to ensure timely follow-ups.</p>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-6 col-lg-4">
-                    <div class="card h-100">
-                        <div class="card-body">
-                            <div class="d-flex align-items-center mb-3">
+                    <div class="card h-100 rounded">
+                        <div class="card-body rounded">
+                            <div class="d-flex align-items-center justify-content-center mb-3">
                                 <i class="bi bi-people fs-1 text-primary me-2"></i>
                                 <h5 class="card-title mb-0">Team Collaboration</h5>
                             </div>
-                            <p class="card-text">Foster teamwork with built-in collaboration tools and shared workspaces.</p>
+                            <p class="card-text text-center">Foster teamwork with built-in collaboration tools and shared workspaces.</p>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-6 col-lg-4">
-                    <div class="card h-100">
-                        <div class="card-body">
-                            <div class="d-flex align-items-center mb-3">
+                    <div class="card h-100 rounded">
+                        <div class="card-body rounded">
+                            <div class="d-flex align-items-center justify-content-center mb-3">
                                 <i class="bi bi-briefcase fs-1 text-primary me-2"></i>
                                 <h5 class="card-title mb-0">Deal Tracking</h5>
                             </div>
-                            <p class="card-text">Monitor and manage deals from initial contact to successful close.</p>
+                            <p class="card-text text-center">Monitor and manage deals from initial contact to successful close.</p>
                         </div>
                     </div>
                 </div>

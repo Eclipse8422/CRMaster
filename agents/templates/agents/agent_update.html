@@ -1,12 +1,26 @@
 {% extends "base.html" %}
+{% load crispy_forms_tags %}
 {% block content %}
 
-    <a href="{% url 'agents:agent-detail' agent.pk %}">Go back to {{ agent.user.username }}</a>
-    <hr>
-    <h1>Update agent: {{ agent.user.username }}</h1>
-    <form method="POST">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Update</button>
-    </form>
+<div class="container py-5">
+    <div class="row mb-4">
+        <div class="col-md-8">
+            <a href="{% url 'agents:agent-detail' agent.pk %}" class="btn btn-outline-dark mb-3">
+                <i class="bi bi-arrow-left me-2"></i>Back to {{ agent.user.first_name }} {{ agent.user.last_name }}
+            </a>
+            <h1 class="display-4">Update Agent: {{ agent.user.first_name }} {{ agent.user.last_name }}</h1>
+        </div>
+    </div>
+
+    <div class="card shadow-sm rounded">
+        <div class="card-body rounded">
+            <form method="POST">
+                {% csrf_token %}
+                {{ form|crispy }}
+                <button type="submit" class="btn btn-dark mt-3">Update</button>
+            </form>
+        </div>
+    </div>
+</div>
+
 {% endblock content %}

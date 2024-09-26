@@ -1,14 +1,102 @@
 {% extends "base.html" %}
 {% block content %}
-    {% if request.user.is_organisor %}
-    <a href="{% url 'leads:lead-create'%}">Create new lead</a>
-    {% endif %}
-    <hr>
-    <h1>This is leads list</h1>
-    {% for lead in leads %}
-        <div>
-            <a href="{% url 'leads:lead-detail' lead.pk %}">{{ lead.first_name }} {{ lead.last_name }}</a>
+
+<div class="container py-5">
+    <div class="row mb-4">
+        <div class="col-md-8">
+            <h2 class="display-4 mb-3">Leads({{ leads.count }})</h2>
+            <a href="{% url 'leads:category-list' %}" class="text-decoration-none text-muted hover-primary">
+                View categories
+            </a>
         </div>
-    {% endfor %}
+        {% if request.user.is_organisor %}
+        <div class="col-md-4 text-md-end mt-5">
+            <a href="{% url 'leads:lead-create' %}" class="btn btn-dark rounded">
+                <i class="bi bi-plus-circle me-2"></i>Create a new lead
+            </a>
+        </div>
+        {% endif %}
+    </div>
+    <hr>
+    <div class="card shadow-sm rounded">
+        <div class="card-body rounded">
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead class="lead-table">
+                        <tr>
+                            <th class="rounded-start">Name</th>
+                            <th>Email</th>
+                            <th>Age</th>
+                            <th>Phone Number</th>
+                            <th>Category</th>
+                            {% if user.is_organisor %}
+                                <th class="rounded-end">Edit</th>
+                            {% endif %}
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for lead in leads %}
+                        <tr>
+                            <td>
+                                <a href="{% url 'leads:lead-detail' lead.pk %}" class="text-decoration-none fw-bold hover-primary text-black">{{ lead.first_name }} {{ lead.last_name }}</a>
+                            </td>
+                            <td>{{ lead.email }}</td>
+                            <td>{{ lead.age }}</td>
+                            <td>{{ lead.phone_number }}</td>
+                            <td>
+                                {% if lead.category %}
+                                    <span class="badge bg-success rounded">{{ lead.category.name }}</span>
+                                {% else %}
+                                    <span class="badge bg-secondary rounded">Fresh</span>
+                                {% endif %}
+                            </td>
+                            {% if user.is_organisor %}
+                                <td>
+                                    <a href="{% url 'leads:lead-update' lead.pk %}" class="btn btn-sm btn-outline-dark rounded">
+                                        <i class="bi bi-pencil"></i>
+                                    </a>
+                                </td>
+                            {% endif %}
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="7" class="text-center py-4">
+                                <p class="text-muted mb-0">There are currently no leads</p>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    {% if unassigned_leads.exists %}
+    <div class="mt-5">
+        <h2 class="display-6 mb-4">Unassigned Leads({{ unassigned_leads.count }})</h2>
+        <hr>
+        <div class="row g-4">
+            {% for lead in unassigned_leads %}
+            <div class="col-md-6">
+                <div class="card h-100 shadow-sm rounded">
+                    <div class="card-body rounded">
+                        <div class="d-flex align-items-center mb-3">
+                            <div class="bg-primary text-white rounded-circle d-flex justify-content-center align-items-center p-4 me-3" style="width: 60px; height: 60px;">
+                                <i class="bi bi-graph-up fs-3"></i>
+                            </div>
+                            <h3 class="card-title mb-0">{{ lead.first_name }} {{ lead.last_name }}</h3>
+                        </div>
+                        <p class="card-text p-1">{{ lead.description|truncatewords:20 }}</p>
+                        <a href="{% url 'leads:assign-agent' lead.pk %}" class="btn btn-outline-dark rounded">
+                            <i class="bi bi-person-check me-2"></i>Assign an agent
+                        </a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+</div>
 
 {% endblock content %}
