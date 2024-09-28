@@ -1,1 +1,1 @@
-web: gunicorn --bind 0.0.0.0:8000 crm.wsgi:application
+web: gunicorn --worker-tmp-dir /dev/shm/ crm.wsgi:application
