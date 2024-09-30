@@ -2,38 +2,43 @@
 {% load static %}
 {% block content %}
 
-    <main class="flex-grow-1">
-        <section class="py-5">
-            <div class="container">
-                <h1 class="text-center mb-5">{{ category.name }} Leads</h1>
-                <div class="row justify-content-center">
-                    <div class="col-md-8">
-                        <div class="card lead-table">
-                            <div class="card-body">
-                                <table class="table table-hover">
-                                    <thead>
+<main class="flex-grow-1">
+    <section class="py-5">
+        <div class="container">
+            <div class="text-center mb-4">
+                <h1 class="mb-3">{{ category.name }} Leads</h1>
+                <a href="{% url 'leads:category-update' category.pk %}" class="btn btn-dark">
+                    <i class="bi bi-pencil-square me-2"></i>Update category
+                </a>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-md-8">
+                    <div class="card lead-table shadow-sm rounded">
+                        <div class="card-body rounded">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th class="rounded-start" scope="col">Name</th>
+                                        <th class="col-md-6 rounded-end" scope="col">Agent assigned</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for lead in category.leads.all %}
                                         <tr>
-                                            <th scope="col">Name</th>
-                                            <th class="col-md-6"scope="col">Agent assigned</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        {% for lead in category.leads.all %}
-                                            <tr>
-                                                <td class="custom-hover">
+                                            <td class="custom-hover">
                                                 <a class="text-decoration-none text-reset" href="{% url 'leads:lead-detail' lead.pk %}">{{ lead.first_name }} {{ lead.last_name }}</a>
-                                                </td>
-                                                <td>{{ lead.agent.user.email }}</td>
-                                            </tr>
-                                        {% endfor %}   
-                                    </tbody>
-                                </table>
-                            </div>
+                                            </td>
+                                            <td>{{ lead.agent.user.email }}</td>
+                                        </tr>
+                                    {% endfor %}   
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
             </div>
-        </section>
-    </main>
-    
+        </div>
+    </section>
+</main>
+
 {% endblock content %}

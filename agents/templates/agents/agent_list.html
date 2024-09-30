@@ -19,32 +19,32 @@
                 <table class="table table-hover">
                     <thead class="lead-table">
                         <tr>
-                            <th>Username</th>
+                            <th class="rounded-start">Username</th>
                             <th>Name</th>
                             <th>Email</th>
-                            <th>Edit</th>
+                            <th class="rounded-end">Edit</th>
                         </tr>
                     </thead>
                     <tbody>
                         {% for agent in agents %}
-                        <tr>
-                            <td>
-                                <a href="{% url 'agents:agent-detail' agent.pk %}" class="text-decoration-none fw-bold hover-primary text-black">{{ agent.user.username }}</a>
-                            </td>
-                            <td>{{ agent.user.first_name }} {{ agent.user.last_name }}</td>
-                            <td>{{ agent.user.email }}</td>
-                            <td>
-                                <a href="{% url 'agents:agent-update' agent.pk %}" class="btn btn-sm btn-outline-dark rounded">
-                                    <i class="bi bi-pencil"></i>
-                                </a>
-                            </td>
-                        </tr>
+                            <tr>
+                                <td>
+                                    <a href="{% url 'agents:agent-detail' agent.pk %}" class="text-decoration-none fw-bold hover-primary text-black">{{ agent.user.username }}</a>
+                                </td>
+                                <td>{{ agent.user.first_name }} {{ agent.user.last_name }}</td>
+                                <td>{{ agent.user.email }}</td>
+                                <td>
+                                    <a href="{% url 'agents:agent-update' agent.pk %}" class="btn btn-sm btn-outline-dark rounded">
+                                        <i class="bi bi-pencil"></i>
+                                    </a>
+                                </td>
+                            </tr>
                         {% empty %}
-                        <tr>
-                            <td colspan="5" class="text-center py-4">
-                                <p class="text-muted mb-0">There are currently no agents</p>
-                            </td>
-                        </tr>
+                            <tr>
+                                <td colspan="5" class="text-center py-4">
+                                    <p class="text-muted mb-0">There are currently no agents</p>
+                                </td>
+                            </tr>
                         {% endfor %}
                     </tbody>
                 </table>

@@ -2,7 +2,7 @@ from django.core.mail import send_mail
 from django.shortcuts import render, redirect, reverse
 from .models import Lead, Category
 from django.views import generic
-from .forms import LeadModelForm, CustomUserCreationForm, AssignAgentForm, LeadCategoryForm
+from .forms import LeadModelForm, CustomUserCreationForm, AssignAgentForm, LeadCategoryForm, CategoryModelForm
 from django.contrib.auth.mixins import LoginRequiredMixin
 from agents.mixins import OrganisorAndLoginRequiredMixin
 
@@ -195,4 +195,32 @@ class LeadCategoryUpdateView(LoginRequiredMixin, generic.UpdateView):
             queryset = Lead.objects.filter(organisation = user.agent.organisation)
             queryset = Lead.objects.filter(agent__user = user)
         return queryset
+
+class CategoryCreateView(OrganisorAndLoginRequiredMixin, generic.CreateView):
+    template_name = 'leads/category_create.html'
+    context_object_name = 'category'
+    form_class = CategoryModelForm
+
+    def get_success_url(self):
+        return reverse("leads:category-list")
     
+    def form_valid(self, form):
+        category = form.save(commit=False)
+        category.organisation = self.request.user.userprofile
+        category.save()
+        return super(CategoryCreateView, self).form_valid(form)
+    
+class CategoryUpdateView(OrganisorAndLoginRequiredMixin, generic.UpdateView):
+    template_name = 'leads/category_update.html'
+    form_class = CategoryModelForm
+
+    def get_success_url(self):
+        return reverse("leads:category-list")
+         
+    def get_queryset(self):
+        user = self.request.user
+        if user.is_organisor:
+            queryset = Category.objects.filter(organisation = user.userprofile)
+        else:
+            queryset = Category.objects.filter(organisation = user.agent.organisation)
+        return queryset
