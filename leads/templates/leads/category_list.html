@@ -6,8 +6,8 @@
             <div class="container">
                 <div class="text-center mb-4">
                     <h1 class="mb-3">Lead Categories</h1>
-                    <a href="{% url 'leads:category-create' %}" class="btn btn-dark">
                         {% if user.is_organisor %}
+                            <a href="{% url 'leads:category-create' %}" class="btn btn-dark">
                             <i class="bi bi-plus-circle me-2"></i>Create new category
                         {% endif %}
                     </a>
