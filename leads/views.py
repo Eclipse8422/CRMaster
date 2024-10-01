@@ -5,6 +5,7 @@ from django.views import generic
 from .forms import LeadModelForm, CustomUserCreationForm, AssignAgentForm, LeadCategoryForm, CategoryModelForm
 from django.contrib.auth.mixins import LoginRequiredMixin
 from agents.mixins import OrganisorAndLoginRequiredMixin
+from django.conf import settings
 
 class RegisterView(generic.CreateView):
     template_name = 'registration/register.html'
@@ -77,8 +78,8 @@ class LeadCreateView(OrganisorAndLoginRequiredMixin, generic.CreateView):
         send_mail(
             subject = "A new lead has been created.",
             message = "Visit the site to know more",
-            from_email = "test@test.com",
-            recipient_list = ["test2@test.com"]
+            from_email =settings.DEFAULT_FROM_EMAIL,
+            recipient_list = ["eclipsejod@gmail.com"]
         )
         return super(LeadCreateView, self).form_valid(form)                                                         
 
