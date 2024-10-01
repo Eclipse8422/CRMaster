@@ -5,8 +5,8 @@
     <div class="container py-5">
         <div class="row mb-4">
             <div class="col-md-8">
-                <a href="{% url 'leads:category-list' %}" class="btn btn-outline-dark mb-3">
-                    <i class="bi bi-arrow-left me-2"></i>Back to categories list
+                <a href="{% url 'leads:category-detail' category.pk %}" class="btn btn-outline-dark mb-3">
+                    <i class="bi bi-arrow-left me-2"></i>Back to {{ category.name }} Leads
                 </a>
                 <h1 class="display-4">Update {{ category.name }}</h1>
             </div>

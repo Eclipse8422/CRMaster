@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+<div class="container py-5">
+    <div class="row mb-4">
+        <div class="col-md-8">
+            <a href="{% url 'leads:category-detail' category.pk %}" class="btn btn-outline-dark mb-3">
+                <i class="bi bi-arrow-left me-2"></i>Back to {{ category.name }} Leads
+            </a>
+            <h1 class="display-4">Delete {{ category.name }}</h1>
+        </div>
+    </div>
+
+    <div class="card shadow-sm rounded">
+        <div class="card-body rounded">
+            <p class="lead mb-4">Are you sure you want to delete the category "{{ category.name }}"?</p>
+            <form method="POST">
+                {% csrf_token %}
+                {{ form|crispy }}
+                <div class="mt-3">
+                    <button type="submit" class="btn btn-danger">Delete</button>
+                    <a href="{% url 'leads:category-detail' category.pk %}" class="btn btn-outline-secondary ms-2">Cancel</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

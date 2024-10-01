@@ -224,3 +224,17 @@ class CategoryUpdateView(OrganisorAndLoginRequiredMixin, generic.UpdateView):
         else:
             queryset = Category.objects.filter(organisation = user.agent.organisation)
         return queryset
+    
+class CategoryDeleteView(OrganisorAndLoginRequiredMixin, generic.DeleteView):
+    template_name = 'leads/category_delete.html'
+
+    def get_success_url(self):
+        return reverse("leads:category-list")
+    
+    def get_queryset(self):
+        user = self.request.user
+        if user.is_organisor:
+            queryset = Category.objects.filter(organisation = user.userprofile)
+        else:
+            queryset = Category.objects.filter(organisation = user.agent.organisation)
+        return queryset
