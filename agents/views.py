@@ -5,6 +5,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from leads.models import Agent
 from .forms import AgentLeadForm
 from .mixins import OrganisorAndLoginRequiredMixin
+from django.conf import settings
 import random
 
 
@@ -36,7 +37,7 @@ class AgentCreateView(OrganisorAndLoginRequiredMixin, generic.CreateView):
         send_mail(
             subject="Agent invite",
             message="You were added as an agent on CRMaster. Please Login and start working!",
-            from_email="admin@test.com",
+            from_email=settings.DEFAULT_FROM_EMAIL,
             recipient_list=[user.email]
         )
         return super(AgentCreateView, self).form_valid(form)
