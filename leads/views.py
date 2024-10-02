@@ -6,6 +6,8 @@ from .forms import LeadModelForm, CustomUserCreationForm, AssignAgentForm, LeadC
 from django.contrib.auth.mixins import LoginRequiredMixin
 from agents.mixins import OrganisorAndLoginRequiredMixin
 from django.conf import settings
+from django.contrib.auth.views import PasswordResetView
+from django.urls import reverse_lazy
 
 class RegisterView(generic.CreateView):
     template_name = 'registration/register.html'
@@ -239,3 +241,9 @@ class CategoryDeleteView(OrganisorAndLoginRequiredMixin, generic.DeleteView):
         else:
             queryset = Category.objects.filter(organisation = user.agent.organisation)
         return queryset
+    
+
+class CustomPasswordResetView(PasswordResetView):
+    email_template_name = 'password_reset_email.html'
+    success_url = reverse_lazy('password_reset_done')
+    # Add any other customizations you need
