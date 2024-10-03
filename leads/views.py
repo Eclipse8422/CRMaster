@@ -127,7 +127,14 @@ class AssignAgentView(OrganisorAndLoginRequiredMixin, generic.FormView):
         lead = Lead.objects.get(id=self.kwargs["pk"])
         lead.agent = agent
         lead.save()
-        return super(AssignAgentView, self).form_valid(form)
+        if lead.agent and lead.agent.user and lead.agent.user.email:
+            send_mail(
+                subject = "You've been assigned to the new lead.",
+                message = "Visit the site to know more",
+                from_email =settings.DEFAULT_FROM_EMAIL,
+                recipient_list = [lead.agent.user.email]
+            )
+            return super(LeadCreateView, self).form_valid(form)   
     
 
 class CategoryListView(LoginRequiredMixin, generic.ListView):
