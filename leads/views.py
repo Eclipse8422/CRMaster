@@ -82,7 +82,7 @@ class LeadCreateView(OrganisorAndLoginRequiredMixin, generic.CreateView):
                 from_email =settings.DEFAULT_FROM_EMAIL,
                 recipient_list = [lead.agent.user.email]
             )
-        return super(LeadCreateView, self).form_valid(form)                                                      
+            return super(LeadCreateView, self).form_valid(form)                                                         
 
 class LeadUpdateView(OrganisorAndLoginRequiredMixin, generic.UpdateView):
     template_name = 'leads/lead_update.html'
@@ -134,7 +134,7 @@ class AssignAgentView(OrganisorAndLoginRequiredMixin, generic.FormView):
                 from_email =settings.DEFAULT_FROM_EMAIL,
                 recipient_list = [lead.agent.user.email]
             )
-        return super(LeadCreateView, self).form_valid(form)   
+        return super(AssignAgentView, self).form_valid(form)  
     
 
 class CategoryListView(LoginRequiredMixin, generic.ListView):
