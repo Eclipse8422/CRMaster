@@ -75,12 +75,12 @@ class LeadCreateView(OrganisorAndLoginRequiredMixin, generic.CreateView):
         lead = form.save(commit=False)
         lead.organisation = self.request.user.userprofile
         lead.save()
-        send_mail(
-            subject = "You've been assigned to the new lead.",
-            message = "Visit the site to know more",
-            from_email =settings.DEFAULT_FROM_EMAIL,
-            recipient_list = [lead.agent.user.email]
-        )
+        # send_mail(
+        #     subject = "You've been assigned to the new lead.",
+        #     message = "Visit the site to know more",
+        #     from_email =settings.DEFAULT_FROM_EMAIL,
+        #     recipient_list = [lead.agent.user.email]
+        # )
         return super(LeadCreateView, self).form_valid(form)                                                         
 
 class LeadUpdateView(OrganisorAndLoginRequiredMixin, generic.UpdateView):
