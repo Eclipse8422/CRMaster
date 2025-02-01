@@ -34,12 +34,12 @@ class AgentCreateView(OrganisorAndLoginRequiredMixin, generic.CreateView):
             user = user,
             organisation = self.request.user.userprofile
         )
-        send_mail(
-            subject="Agent invite",
-            message="You were added as an agent on CRMaster. Please Login and start working!",
-            from_email=settings.DEFAULT_FROM_EMAIL,
-            recipient_list=[user.email]
-        )
+        # send_mail(
+        #     subject="Agent invite",
+        #     message="You were added as an agent on CRMaster. Please Login and start working!",
+        #     from_email=settings.DEFAULT_FROM_EMAIL,
+        #     recipient_list=[user.email]
+        # )
         return super(AgentCreateView, self).form_valid(form)
     
 class AgentDetailView(OrganisorAndLoginRequiredMixin, generic.DetailView):
