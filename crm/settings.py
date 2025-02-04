@@ -22,7 +22,7 @@ SECRET_KEY = env('SECRET_KEY')
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-ALLOWED_HOSTS = ['13.235.77.66', '127.0.0.1']
+ALLOWED_HOSTS = ["13.233.193.219", "127.0.0.1"]
 
 # Application definition
 
