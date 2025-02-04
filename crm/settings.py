@@ -15,8 +15,8 @@ ALLOWED_HOSTS = []
 # Read the .env file
 environ.Env.read_env(os.path.join(BASE_DIR, '.env'))  # Ensure .env is loaded from the correct location
 
-DEBUG = env('DEBUG')
-SECRET_KEY = env('SECRET_KEY')
+DEBUG = True
+SECRET_KEY = '5GByJV25--LDBCMB1C6XUg6cFV0XFYM5v1qP71GmPG0yH83BVRgrLuL0vHiUg3p8xOg'
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
