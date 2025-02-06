@@ -120,54 +120,26 @@ AWS_STORAGE_BUCKET_NAME = os.getenv('AWS_STORAGE_BUCKET_NAME')
 AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
 AWS_S3_FILE_OVERWRITE = os.getenv('AWS_S3_FILE_OVERWRITE')
 
-# print(os.getenv("AWS_ACCESS_KEY_ID"))
-# print(os.getenv("AWS_SECRET_ACCESS_KEY"))
-# print(os.getenv("AWS_STORAGE_BUCKET_NAME"))
+if AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY and AWS_STORAGE_BUCKET_NAME:
+    AWS_S3_CUSTOM_DOMAIN = f'{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com'
 
-STORAGES = {
+    STORAGES = {
+        "default": {"BACKEND": "storages.backends.s3boto3.S3Boto3Storage"},
+        "staticfiles": {"BACKEND": "storages.backends.s3boto3.S3StaticStorage"},
+    }
 
-    # Media file (image) management   
-    "default": {
-        "BACKEND": "storages.backends.s3boto3.S3StaticStorage",
-    },
-    
-    # CSS and JS file management
-    "staticfiles": {
-        "BACKEND": "storages.backends.s3boto3.S3StaticStorage",
-    },
-}
-# Check if all necessary AWS S3 environment variables are set
-# AWS_S3_READY = (
-#     AWS_ACCESS_KEY_ID is not None
-#     and AWS_SECRET_ACCESS_KEY is not None
-#     and AWS_STORAGE_BUCKET_NAME is not None
-#     and AWS_S3_REGION_NAME is not None
-# )
+    # Set static and media URLs to use S3
+    STATIC_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/static/'
+    MEDIA_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/media/'
 
-# if AWS_S3_READY:
-#     # Configure AWS S3 settings
-#     AWS_S3_CUSTOM_DOMAIN = f'{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com'
-
-#     # Static files (CSS, JavaScript, images)
-#     STATIC_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/static/'
-    
-#     STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
-    
-
-#     # Media files (uploads)
-#     MEDIA_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/media/'
-#     DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
-
-#     # Optional: Cache control settings
-#     AWS_S3_OBJECT_PARAMETERS = {
-#         'CacheControl': 'max-age=86400',
-#     }
-#     STATIC_ROOT = BASE_DIR / 'staticfiles'
-# else:
-    # Fallback to default local storage
-# STATIC_URL = '/static/'
-# STATICFILES_DIRS = [BASE_DIR / "static"]
-# STATIC_ROOT = BASE_DIR / "staticfiles"
+    # Optional: Cache control settings
+    AWS_S3_OBJECT_PARAMETERS = {
+        'CacheControl': 'max-age=86400',  # 1 day cache
+    }
+else:
+    # Fallback to local storage if AWS S3 is not configured
+    STATIC_URL = '/static/'
+    STATICFILES_DIRS = [BASE_DIR / "static"]
 
 
 # Default primary key field type
