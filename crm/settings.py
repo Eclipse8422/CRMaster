@@ -65,13 +65,40 @@ WSGI_APPLICATION = 'crm.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',  # This will create an SQLite file in your project folder
-    }
-}
+POSTGRES_DB = os.getenv("DB_NAME")
+POSTGRES_PASSWORD = os.getenv("DB_PASSWORD")
+POSTGRES_USER = os.getenv("DB_USER")
+POSTGRES_HOST = os.getenv("DB_HOST")
+POSTGRES_PORT = os.getenv("DB_PORT")
 
+# Check if PostgreSQL environment variables are set
+POSTGRES_READY = (
+    POSTGRES_DB is not None
+    and POSTGRES_PASSWORD is not None
+    and POSTGRES_USER is not None
+    and POSTGRES_HOST is not None
+    and POSTGRES_PORT is not None
+)
+
+# Define the DATABASES setting based on the availability of PostgreSQL variables
+if POSTGRES_READY:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': POSTGRES_DB,
+            'USER': POSTGRES_USER,
+            'PASSWORD': POSTGRES_PASSWORD,
+            'HOST': POSTGRES_HOST,
+            'PORT': POSTGRES_PORT,
+        }
+    }
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        }
+    }
 
 
 # Password validation
