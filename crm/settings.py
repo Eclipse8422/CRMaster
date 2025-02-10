@@ -12,7 +12,7 @@ DEBUG = os.getenv('DEBUG')
 SECRET_KEY = os.getenv('SECRET_KEY')
 
 
-ALLOWED_HOSTS = ["13.233.193.219", "127.0.0.1"]
+ALLOWED_HOSTS = ["13.233.193.219", "127.0.0.1", "crmaster.tech", "www.crmaster.tech"]
 
 # Application definition
 
@@ -186,26 +186,13 @@ CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
 
 CRISPY_TEMPLATE_PACK = "bootstrap5"
 
-# if not DEBUG:
-#     SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
-#     SECURE_SSL_REDIRECT = False
-#     SESSION_COOKIE_SECURE = True
-#     CSRF_COOKIE_SECURE = True
-#     SECURE_BROWSER_XSS_FILTER = True
-#     SECURE_CONTENT_TYPE_NOSNIFF = True
-#     SECURE_HSTS_SECONDS = 31536000  # 1 year
-#     SECURE_HSTS_INCLUDE_SUBDOMAINS = True
-#     SECURE_HSTS_PRELOAD = True
-#     X_FRAME_OPTIONS = "DENY"
 
-#     ALLOWED_HOSTS = ["*"]
 
-    # EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-    # EMAIL_HOST = env("EMAIL_HOST", default="localhost")  # Default to localhost
-    # EMAIL_HOST_USER = env("EMAIL_HOST_USER", default="")  # Default to an empty string
-    # EMAIL_HOST_PASSWORD = env("EMAIL_HOST_PASSWORD", default="")  # Default to an empty string
-    # EMAIL_USE_TLS = env("EMAIL_USE_TLS", default=True)  # Default to True for security
-    # EMAIL_PORT = env("EMAIL_PORT", default=587)  # Default to port 587 for TLS
-    # DEFAULT_FROM_EMAIL = env("DEFAULT_FROM_EMAIL", default="webmaster@localhost")  # Default to localhost
-
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
+EMAIL_USE_TLS = True
+EMAIL_USE_SSL = False
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
