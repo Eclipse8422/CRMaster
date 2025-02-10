@@ -73,5 +73,4 @@ class AgentDeleteView(OrganisorAndLoginRequiredMixin, generic.DeleteView):
     
     def get_success_url(self):
         return reverse('agents:agent-list')
-
-     
+    

@@ -1,6 +1,8 @@
 from django.db import models
-from django.db.models.signals import post_save
+from django.db.models.signals import post_save, post_delete
+from django.dispatch import receiver
 from django.contrib.auth.models import AbstractUser
+
 
 class User(AbstractUser):
     is_organisor = models.BooleanField(default=True)
@@ -47,3 +49,8 @@ def post_user_created_signal(sender, instance, created, **kwargs):
         UserProfile.objects.create(user = instance)
 
 post_save.connect(post_user_created_signal, sender=User)
+
+@receiver(post_delete, sender=Agent)
+def delete_user_when_agent_deleted(sender, instance, **kwargs):
+    if instance.user:
+        instance.user.delete()
