@@ -1,7 +1,6 @@
 from pathlib import Path
 import os
 from dotenv import load_dotenv
-import logging
 
 # Updated settings to load from .env file
 load_dotenv()
@@ -10,7 +9,8 @@ load_dotenv()
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-DEBUG = True
+
+DEBUG = os.getenv('DEBUG')
 SECRET_KEY = os.getenv('SECRET_KEY')
 
 
@@ -198,40 +198,3 @@ EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
 EMAIL_USE_TLS = True
 EMAIL_USE_SSL = False
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
-
-
-LOGGING = {
-    'version': 1,
-    'disable_existing_loggers': False,
-    'formatters': {
-        'verbose': {
-            'format': '{levelname} {asctime} {module} {message}',
-            'style': '{',
-        },
-    },
-    'handlers': {
-        'file': {
-            'level': 'DEBUG',
-            'class': 'logging.FileHandler',
-            'filename': '/var/log/django/email.log',  # Ensure this path exists
-            'formatter': 'verbose',
-        },
-    },
-    'loggers': {
-        'django': {
-            'handlers': ['file'],
-            'level': 'DEBUG',
-            'propagate': True,
-        },
-        'django.request': {
-            'handlers': ['file'],
-            'level': 'ERROR',
-            'propagate': True,
-        },
-        'django.mail': {  # Logs email sending attempts
-            'handlers': ['file'],
-            'level': 'DEBUG',
-            'propagate': True,
-        },
-    },
-}

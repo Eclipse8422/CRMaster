@@ -1,5 +1,4 @@
 from django.core.mail import send_mail
-from smtplib import SMTPException
 from django.shortcuts import render, reverse
 from django.views import generic
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -8,7 +7,6 @@ from .forms import AgentLeadForm
 from .mixins import OrganisorAndLoginRequiredMixin
 from django.conf import settings
 import random
-from django.contrib import messages
 
 
 class AgentListView(OrganisorAndLoginRequiredMixin, generic.ListView):
@@ -25,37 +23,28 @@ class AgentCreateView(OrganisorAndLoginRequiredMixin, generic.CreateView):
 
     def get_success_url(self):
         return reverse('agents:agent-list')
-
+    
     def form_valid(self, form):
         user = form.save(commit=False)
         user.is_agent = True
         user.is_organisor = False
-        user.set_password(str(random.randint(1, 10000000)))
+        user.set_password(str(random.randint(1,10000000)))
         user.save()
-        
         Agent.objects.create(
-            user=user,
-            organisation=self.request.user.userprofile
+            user = user,
+            organisation = self.request.user.userprofile
         )
-
-        try:
-            send_mail(
-                subject="Agent Invite",
-                message="",
-                from_email=settings.DEFAULT_FROM_EMAIL,
-                recipient_list=[user.email],
-                html_message="""
-                    <p>You were added as an agent on <b>CRMaster</b>.</p>
-                    <p>Please <a href='https://www.crmaster.tech' style='color: blue; text-decoration: underline;'>log in</a> and start working.</p>
-                """
-            )
-            messages.success(self.request, "Agent created successfully, and email sent.")
-        except SMTPException as e:
-            messages.error(self.request, f"Agent created, but email failed to send. Error: {str(e)}")
-        except Exception as e:
-            messages.error(self.request, f"An unexpected error occurred while sending email: {str(e)}")
-
-        return super().form_valid(form)
+        # send_mail(
+        #     subject="Agent Invite",
+        #     message="",
+        #     from_email=settings.DEFAULT_FROM_EMAIL,
+        #     recipient_list=[user.email],
+        #     html_message="""
+        #                 <p>You were added as an agent on <b>CRMaster</b>.</p>
+        #                 <p>Please <a href='https://www.crmaster.tech' style='color: blue; text-decoration: underline;'>log in</a> and start working.</p>
+        #     """
+        # )
+        return super(AgentCreateView, self).form_valid(form)
     
 class AgentDetailView(OrganisorAndLoginRequiredMixin, generic.DetailView):
     template_name = 'agents/agent_detail.html'
