@@ -3,11 +3,13 @@ import os
 from dotenv import load_dotenv
 
 # Updated settings to load from .env file
-load_dotenv()
+# load_dotenv()
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+dotenv_path = BASE_DIR / ".env"
+load_dotenv(dotenv_path=dotenv_path)
 
 DEBUG = os.getenv('DEBUG')
 SECRET_KEY = os.getenv('SECRET_KEY')
@@ -196,4 +198,4 @@ EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
 EMAIL_USE_TLS = True
 EMAIL_USE_SSL = False
-DEFAULT_FROM_EMAIL = os.getenv('EMAIL_HOST_USER')
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
