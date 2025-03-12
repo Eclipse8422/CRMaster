@@ -3,13 +3,11 @@ import os
 from dotenv import load_dotenv
 
 # Updated settings to load from .env file
-# load_dotenv()
+load_dotenv()
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-dotenv_path = BASE_DIR / ".env"
-load_dotenv(dotenv_path=dotenv_path)
 
 DEBUG = True
 SECRET_KEY = os.getenv('SECRET_KEY')
