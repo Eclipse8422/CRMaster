@@ -203,3 +203,26 @@ DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 # print("SECRET_KEY:", SECRET_KEY)
 # print("EMAIL_HOST_USER:", EMAIL_HOST_USER)
 # print("EMAIL_HOST_PASSWORD:", EMAIL_HOST_PASSWORD)
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'console': {
+            'level': 'ERROR',  # Capture only errors or higher
+            'class': 'logging.StreamHandler',
+        },
+        'file': {
+            'level': 'ERROR',  # Log errors to file in production
+            'class': 'logging.FileHandler',
+            'filename': '/path/to/your/logs/django_error.log',
+        },
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['console', 'file'],
+            'level': 'ERROR',  # Capture errors for production
+            'propagate': True,
+        },
+    },
+}
