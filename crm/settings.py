@@ -14,7 +14,7 @@ DEBUG = os.getenv('DEBUG')
 SECRET_KEY = os.getenv('SECRET_KEY')
 
 
-ALLOWED_HOSTS = ["127.0.0.1", "crmaster.tech", "www.crmaster.tech"]
+ALLOWED_HOSTS = ['127.0.0.1', 'crmaster.tech', 'www.crmaster.tech', '35.154.251.228']
 
 # Application definition
 
