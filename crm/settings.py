@@ -207,21 +207,31 @@ DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
-    'handlers': {
-        'console': {
-            'level': 'ERROR',  # Capture only errors or higher
-            'class': 'logging.StreamHandler',
+    'formatters': {
+        'verbose': {
+            'format': '{levelname} {asctime} {module} {message}',
+            'style': '{',
         },
+        'simple': {
+            'format': '{levelname} {message}',
+            'style': '{',
+        },
+    },
+    'handlers': {
         'file': {
-            'level': 'ERROR',  # Log errors to file in production
+            'level': 'ERROR',
             'class': 'logging.FileHandler',
-            'filename': '/path/to/your/logs/django_error.log',
+            'filename': os.path.join(BASE_DIR, 'logs', 'django_error.log'),
+        },
+        'console': {
+            'level': 'ERROR',
+            'class': 'logging.StreamHandler',
         },
     },
     'loggers': {
         'django': {
-            'handlers': ['console', 'file'],
-            'level': 'ERROR',  # Capture errors for production
+            'handlers': ['file', 'console'],
+            'level': 'ERROR',
             'propagate': True,
         },
     },
